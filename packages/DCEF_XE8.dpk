@@ -30,7 +30,8 @@ package DCEF_XE8;
 
 requires
   rtl,
-  vcl;
+  vcl,
+  fmx;
 
 contains
   cefreg in 'cefreg.pas',
