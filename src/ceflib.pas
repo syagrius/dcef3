@@ -30,7 +30,7 @@ unit ceflib;
 interface
 uses
 {$IFDEF DELPHI14_UP}
-  Rtti, TypInfo, Variants, Generics.Collections,
+  System.Rtti, TypInfo, Variants, Generics.Collections,
 {$ENDIF}
 {$IFDEF CEF_MULTI_THREADED_MESSAGE_LOOP}
   Messages,
@@ -953,7 +953,7 @@ type
     CERT_STATUS_RESERVED_18, // Bit 18 was CERT_STATUS_IS_DNSSEC
     CERT_STATUS_SHA1_SIGNATURE_PRESENT,
     CERT_STATUS_CT_COMPLIANCE_FAILED
-  );
+  );
 
   TCefCertStatus = set of TCefCertStatu;
 const
@@ -3798,10 +3798,10 @@ type
     // default to the source browser's values. If the |no_javascript_access| value
     // is set to false (0) the new browser will not be scriptable and may not be
     // hosted in the same renderer process as the source browser. Any
-    // modifications to |windowInfo| will be ignored if the parent browser is
+    // modifications to |windowInfo| will be ignored if the parent browser is
     // wrapped in a cef_browser_view_t.
     on_before_popup: function(self: PCefLifeSpanHandler;
-      browser: PCefBrowser; frame: PCefFrame;
+      browser: PCefBrowser; frame: PCefFrame;
       const target_url, target_frame_name: PCefString;
       target_disposition: TCefWindowOpenDisposition; user_gesture: Integer;
       const popupFeatures: PCefPopupFeatures;
@@ -7532,7 +7532,7 @@ type
     procedure DragTargetDrop(event: PCefMouseEvent);
     procedure DragSourceEndedAt(x, y: Integer; op: TCefDragOperation);
     procedure DragSourceSystemDragEnded;
-    function GetVisibleNavigationEntry: ICefNavigationEntry;
+    function GetVisibleNavigationEntry: ICefNavigationEntry;
 
     property Browser: ICefBrowser read GetBrowser;
     property WindowHandle: TCefWindowHandle read GetWindowHandle;
@@ -7663,7 +7663,7 @@ type
       const postData: ICefPostData; const headerMap: ICefStringMultimap);
     function GetResourceType: TCefResourceType;
     function GetTransitionType: TCefTransitionType;
-    function GetIdentifier: UInt64;
+    function GetIdentifier: UInt64;
 
     property Url: ustring read GetUrl write SetUrl;
     property Method: ustring read GetMethod write SetMethod;
@@ -8557,9 +8557,9 @@ type
     function GetResourceResponseFilter(const browser: ICefBrowser; const frame: ICefFrame;
       const request: ICefRequest; const response: ICefResponse): ICefResponseFilter;
     procedure OnResourceLoadComplete(const browser: ICefBrowser; const frame: ICefFrame;
-      const request: ICefRequest; const response: ICefResponse; status: TCefUrlRequestStatus;
-      receivedContentLength: Int64);
-    function GetAuthCredentials(const browser: ICefBrowser; const frame: ICefFrame;
+      const request: ICefRequest; const response: ICefResponse; status: TCefUrlRequestStatus;
+      receivedContentLength: Int64);
+    function GetAuthCredentials(const browser: ICefBrowser; const frame: ICefFrame;
       isProxy: Boolean; const host: ustring; port: Integer; const realm, scheme: ustring;
       const callback: ICefAuthCallback): Boolean;
     function OnQuotaRequest(const browser: ICefBrowser;
@@ -8618,7 +8618,7 @@ type
     procedure Cont(commandId: Integer; eventFlags: TCefEventFlags);
     procedure Cancel;
   end;
-
+
   ICefContextMenuHandler = interface(ICefBase)
   ['{C2951895-4087-49D5-BA18-4D9BA4F5EDD7}']
     procedure OnBeforeContextMenu(const browser: ICefBrowser; const frame: ICefFrame;
@@ -9478,8 +9478,8 @@ type
     function GetResourceResponseFilter(const browser: ICefBrowser; const frame: ICefFrame;
       const request: ICefRequest; const response: ICefResponse): ICefResponseFilter; virtual;
     procedure OnResourceLoadComplete(const browser: ICefBrowser; const frame: ICefFrame;
-      const request: ICefRequest; const response: ICefResponse; status: TCefUrlRequestStatus;
-      receivedContentLength: Int64); virtual;
+      const request: ICefRequest; const response: ICefResponse; status: TCefUrlRequestStatus;
+      receivedContentLength: Int64); virtual;
     function GetAuthCredentials(const browser: ICefBrowser; const frame: ICefFrame;
       isProxy: Boolean; const host: ustring; port: Integer; const realm, scheme: ustring;
       const callback: ICefAuthCallback): Boolean; virtual;
@@ -11961,13 +11961,13 @@ var
   cef_request_context_create_context: function(const settings: PCefRequestContextSettings;
     handler: PCefRequestContextHandler): PCefRequestContext; {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
-  // Creates a new context object that shares storage with |other| and uses an
-  // optional |handler|.
+  // Creates a new context object that shares storage with |other| and uses an
+  // optional |handler|.
   cef_create_context_shared: function(other: PCefRequestContext;
     handler: PCefRequestContextHandler): PCefRequestContext;
       {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
-  // See include/base/cef_logging.h for macros and intended usage.
+  // See include/base/cef_logging.h for macros and intended usage.
 
   // Gets the current log level.
   cef_get_min_log_level: function(): Integer; {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
@@ -11982,15 +11982,15 @@ var
 
 
 
-  // Returns the current platform thread ID.
-  cef_get_current_platform_thread_id: function(): TCefPlatformThreadId; {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
+  // Returns the current platform thread ID.
+  cef_get_current_platform_thread_id: function(): TCefPlatformThreadId; {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
   // Returns the current platform thread handle.
   cef_get_current_platform_thread_handle: function(): TCefPlatformThreadHandle; {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
 
 
-  // See include/base/cef_trace_event.h for macros and intended usage.
+  // See include/base/cef_trace_event.h for macros and intended usage.
 
   // Functions for tracing counters and functions; called from macros.
   // - |category| string must have application lifetime (static or literal). They
@@ -12042,16 +12042,16 @@ var
   {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
 
-  cef_print_settings_create: function(): PCefPrintSettings;
-  {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
+  cef_print_settings_create: function(): PCefPrintSettings;
+  {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
 
-  cef_drag_data_create: function(): PCefDragData;
-  {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
+  cef_drag_data_create: function(): PCefDragData;
+  {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
-  // Returns the global resource bundle instance.
-  cef_resource_bundle_get_global: function(): PCefResourceBundle;
-  {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
+  // Returns the global resource bundle instance.
+  cef_resource_bundle_get_global: function(): PCefResourceBundle;
+  {$IFDEF CPUX64}stdcall{$ELSE}cdecl{$ENDIF};
 
   // Create a new cef_image_t. It will initially be NULL. Use the Add*() functions
   // to add representations at different scale factors.
@@ -12544,10 +12544,10 @@ begin
 
     cef_request_context_get_global_context := GetProcAddress(LibHandle, 'cef_request_context_get_global_context');
     cef_request_context_create_context := GetProcAddress(LibHandle, 'cef_request_context_create_context');
-    cef_create_context_shared := GetProcAddress(LibHandle, 'cef_create_context_shared');
+    cef_create_context_shared := GetProcAddress(LibHandle, 'cef_create_context_shared');
 
-    cef_get_min_log_level := GetProcAddress(LibHandle, 'cef_get_min_log_level');
-    cef_get_vlog_level := GetProcAddress(LibHandle, 'cef_get_vlog_level');
+    cef_get_min_log_level := GetProcAddress(LibHandle, 'cef_get_min_log_level');
+    cef_get_vlog_level := GetProcAddress(LibHandle, 'cef_get_vlog_level');
     cef_log := GetProcAddress(LibHandle, 'cef_log');
 
     cef_get_current_platform_thread_id := GetProcAddress(LibHandle, 'cef_get_current_platform_thread_id');
@@ -14891,10 +14891,10 @@ begin
     OnDownloadImageFinished(CefString(image_url), http_status_code, TCefImageRef.UnWrap(image));
 end;
 
-{ cef_v8_interceptor }
+{ cef_v8_interceptor }
 
-function cef_v8_interceptor_get_byname(self: PCefV8Interceptor; const name: PCefString;
-  object_: PCefv8Value; out retval: PCefV8Value; exception: PCefString): Integer; stdcall;
+function cef_v8_interceptor_get_byname(self: PCefV8Interceptor; const name: PCefString;
+  object_: PCefv8Value; out retval: PCefV8Value; exception: PCefString): Integer; stdcall;
 var
   ret: ICefv8Value;
   err: ustring;
@@ -14940,8 +14940,8 @@ end;
 
 function cef_v8_interceptor_set_byindex(self: PCefV8Interceptor; index: Integer;
   object_, value: PCefv8Value; exception: PCefString): Integer; stdcall;
-var
-  err: ustring;
+var
+  err: ustring;
 begin
   err := '';
   with TCefV8InterceptorOwn(CefGetObject(self)) do
@@ -14960,8 +14960,8 @@ begin
 
 end;
 
-{ TCefBaseOwn }
-
+{ TCefBaseOwn }
+
 constructor TCefBaseOwn.CreateData(size: Cardinal; owned: Boolean);
 begin
   GetMem(FData, size + SizeOf(Pointer));
