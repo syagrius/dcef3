@@ -30,7 +30,7 @@ unit ceflib;
 interface
 uses
 {$IFDEF DELPHI14_UP}
-{$IFDEF DELPHI15_UP}System.{$ENDIF}Rtti, TypInfo, Variants, Generics.Collections,
+  System.Rtti, TypInfo, Variants, Generics.Collections,
 {$ENDIF}
 {$IFDEF CEF_MULTI_THREADED_MESSAGE_LOOP}
   Messages,

@@ -29,12 +29,10 @@ package DCEF_DX10;
 
 requires
   rtl,
-  vcl,
-  fmx;
+  vcl;
 
 contains
   cefreg in 'cefreg.pas',
-  ceffmx in '..\src\ceffmx.pas',
   cefgui in '..\src\cefgui.pas',
   ceflib in '..\src\ceflib.pas',
   cefvcl in '..\src\cefvcl.pas';
